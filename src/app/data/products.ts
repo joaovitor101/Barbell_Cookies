@@ -20,14 +20,14 @@ export const products: Product[] = [
     name: 'Tradicional recheado com nutella (50g)',
     description: 'Kits: 4 unid. - R$ 30 | 6 unid. - R$ 43',
     price: 7.99,
-    image: 'cookie_nutella.webp',
+    image: 'images/cookie_nutella.webp',
   },
   {
     id: '4',
     name: 'Red velvet com nutella (50g)',
     description: 'Kits: 4 unid. - R$ 30 | 6 unid. - R$ 43',
     price: 12.99,
-    image: 'red_velvet_nutella.jpg',
+    image: 'images/red_velvet_nutella.jpg',
   },
   {
     id: '5',
@@ -48,13 +48,13 @@ export const products: Product[] = [
     name: 'Tradicional recheado com nutella (100g)',
     description: 'Kits: 4 unid. - R$ 56 | 6 unid. - R$ 82',
     price: 14.99,
-    image: 'cookie_nutella.webp',
+    image: 'images/cookie_nutella.webp',
   },
   {
     id: '8',
     name: 'Red velvet com nutella (100g)',
     description: 'Kits: 4 unid. - R$ 56 | 6 unid. - R$ 82',
     price: 14.99,
-    image: 'red_velvet_nutella.jpg',
+    image: 'images/red_velvet_nutella.jpg',
   },
 ];
