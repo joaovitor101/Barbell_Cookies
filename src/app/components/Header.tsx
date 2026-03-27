@@ -19,7 +19,7 @@ export function Header() {
           
           <nav className="flex items-center gap-6">
             <Link to="/" className="text-gray-700 hover:text-amber-600 transition-colors">
-              
+              Loja
             </Link>
             <Link to="/cart">
               <Button variant="outline" className="relative">

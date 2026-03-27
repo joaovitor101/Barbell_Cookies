@@ -3,7 +3,7 @@ import { ProductCard } from '../components/ProductCard';
 
 export function Home() {
   return (
-    <div className="min-h-screen cookie-background"  style={{backgroundColor:'#EDE8D0'}}>
+    <div className="min-h-screen cookie-background">
       
       {/* Hero Section */}
       <div className="cookie-content py-16">

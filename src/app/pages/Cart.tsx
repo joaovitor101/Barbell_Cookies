@@ -27,7 +27,7 @@ export function Cart() {
   }
 
   return (
-    <div className="min-h-screen pb-28 px-4 max-w-4xl mx-auto">
+    <div className="min-h-screen pb-28 px-4 max-w-4xl mx-auto" >
 
       <h1 className="text-2xl font-bold my-6">Carrinho 🛒</h1>
 

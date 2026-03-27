@@ -176,14 +176,14 @@ const handleSubmit = (e: React.FormEvent) => {
                         {item.name} × {item.quantity}
                       </span>
                       <span className="font-semibold">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        R${(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
                   ))}
                   <div className="border-t pt-4 mt-4">
                     <div className="flex justify-between mb-2">
                       <span className="text-gray-600">Total</span>
-                      <span className="font-semibold">${getCartTotal().toFixed(2)}</span>
+                      <span className="font-semibold">R${getCartTotal().toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between mb-2">
                       <span className="text-gray-600">Frete</span>
@@ -191,7 +191,7 @@ const handleSubmit = (e: React.FormEvent) => {
                     </div>
                     <div className="flex justify-between text-lg font-bold mt-4 pt-4 border-t">
                       <span>Total</span>
-                      <span className="text-amber-600">${getCartTotal().toFixed(2)}</span>
+                      <span className="text-amber-600">R${getCartTotal().toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
