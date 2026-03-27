@@ -15,6 +15,7 @@ export function Checkout() {
     lastName: '',
     phone: '',
     address: '',
+    number: '',
   });
 
   // Número do WhatsApp (altere para o seu número)
@@ -52,7 +53,7 @@ export function Checkout() {
     message += `${pinEmoji} *Dados para entrega:*\n`;
     message += `Nome: ${formData.firstName} ${formData.lastName}\n`;
     message += `Telefone: ${formData.phone}\n`;
-    message += `Endereço: ${formData.address}`;
+    message += `Endereço: ${formData.address}, ${formData.number}\n`;
 
     const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
@@ -122,17 +123,30 @@ export function Checkout() {
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="address">Endereço</Label>
-                    <Input
-                      id="address"
-                      name="address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="col-span-2">
+                      <Label htmlFor="address">Endereço</Label>
+                      <Input
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
 
+                    <div className="col-span-1">
+                      <Label htmlFor="number">Número</Label>
+                      <Input
+                        id="number"
+                        name="number"
+                        value={formData.number}
+                        onChange={handleChange}
+                        placeholder="Nº"
+                        required
+                      />
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                     </div>
