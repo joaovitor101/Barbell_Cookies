@@ -26,40 +26,40 @@ export function Checkout() {
     }
   }, [cart.length, navigate]);
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  let message = 'Olá! Vou querer:\n\n';
+    let message = 'Olá! Vou querer:\n\n';
 
-  // emojis em unicode (NUNCA quebra)
-  const cookieEmoji = '\u{1F36A}'; // 🍪
-  const moneyEmoji = '\u{1F4B0}';  // 💰
-  const pinEmoji = '\u{1F4CD}';    // 📍
+    // emojis em unicode (NUNCA quebra)
+    const cookieEmoji = '\u{1F36A}'; // 🍪
+    const moneyEmoji = '\u{1F4B0}';  // 💰
+    const pinEmoji = '\u{1F4CD}';    // 📍
 
-  cart.forEach((item) => {
-    message += `${cookieEmoji} ${item.quantity}x ${item.name}\n`;
-  });
+    cart.forEach((item) => {
+      message += `${cookieEmoji} ${item.quantity}x ${item.name}\n`;
+    });
 
-  message += '\n';
+    message += '\n';
 
-  const total = getCartTotal().toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+    const total = getCartTotal().toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
 
-  message += `${moneyEmoji} Total: ${total}\n\n`;
+    message += `${moneyEmoji} Total: ${total}\n\n`;
 
-  message += `${pinEmoji} *Dados para entrega:*\n`;
-  message += `Nome: ${formData.firstName} ${formData.lastName}\n`;
-  message += `Telefone: ${formData.phone}\n`;
-  message += `Endereço: ${formData.address}`;
+    message += `${pinEmoji} *Dados para entrega:*\n`;
+    message += `Nome: ${formData.firstName} ${formData.lastName}\n`;
+    message += `Telefone: ${formData.phone}\n`;
+    message += `Endereço: ${formData.address}`;
 
-  const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-  window.open(whatsappURL, '_blank');
-  clearCart();
-  navigate('/');
-};
+    window.open(whatsappURL, '_blank');
+    clearCart();
+    navigate('/');
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -151,7 +151,7 @@ const handleSubmit = (e: React.FormEvent) => {
                       onClick={() => navigate('/cart')}
                       className="flex-1"
                     >
-                      Voltar para o carrinho
+                      Voltar
                     </Button>
                     <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700">
                       Finalizar Pedido
