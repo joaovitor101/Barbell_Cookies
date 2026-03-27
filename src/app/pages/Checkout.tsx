@@ -73,20 +73,20 @@ const handleSubmit = (e: React.FormEvent) => {
       <div className="cookie-background-accent-1"></div>
       <div className="cookie-background-accent-2"></div>
       <div className="cookie-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Finalizar Compra</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Delivery Information</CardTitle>
+                <CardTitle>Informações da Entrega</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName">Nome</Label>
                       <Input
                         id="firstName"
                         name="firstName"
@@ -96,7 +96,7 @@ const handleSubmit = (e: React.FormEvent) => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName">Sobrenome</Label>
                       <Input
                         id="lastName"
                         name="lastName"
@@ -111,7 +111,7 @@ const handleSubmit = (e: React.FormEvent) => {
                   </div>
 
                   <div>
-                    <Label htmlFor="phone">Phone</Label>
+                    <Label htmlFor="phone">Telefone</Label>
                     <Input
                       id="phone"
                       name="phone"
@@ -123,7 +123,7 @@ const handleSubmit = (e: React.FormEvent) => {
                   </div>
 
                   <div>
-                    <Label htmlFor="address">Address</Label>
+                    <Label htmlFor="address">Endereço</Label>
                     <Input
                       id="address"
                       name="address"
@@ -151,10 +151,10 @@ const handleSubmit = (e: React.FormEvent) => {
                       onClick={() => navigate('/cart')}
                       className="flex-1"
                     >
-                      Back to Cart
+                      Voltar para o carrinho
                     </Button>
                     <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700">
-                      Place Order
+                      Finalizar Pedido
                     </Button>
                   </div>
                 </form>
@@ -166,7 +166,7 @@ const handleSubmit = (e: React.FormEvent) => {
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
+                <CardTitle>Resumo do Pedido</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -182,12 +182,12 @@ const handleSubmit = (e: React.FormEvent) => {
                   ))}
                   <div className="border-t pt-4 mt-4">
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600">Subtotal</span>
+                      <span className="text-gray-600">Total</span>
                       <span className="font-semibold">${getCartTotal().toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600">Shipping</span>
-                      <span className="font-semibold text-green-600">FREE</span>
+                      <span className="text-gray-600">Frete</span>
+                      <span className="font-semibold text-green-600">GRÁTIS</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold mt-4 pt-4 border-t">
                       <span>Total</span>

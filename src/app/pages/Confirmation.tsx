@@ -44,7 +44,7 @@ export function Confirmation() {
             <div className="pt-4">
               <Link to="/">
                 <Button className="bg-amber-600 hover:bg-amber-700">
-                  Continue Shopping
+                  Continue Comprando
                 </Button>
               </Link>
             </div>

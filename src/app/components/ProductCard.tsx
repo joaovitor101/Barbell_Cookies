@@ -14,7 +14,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = () => {
     addToCart(product);
-    toast.success(`${product.name} added to cart!`);
+    toast.success(`${product.name} adicionado ao carrinho !`);
   };
 
   return (
@@ -28,16 +28,16 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
-        <CardDescription>{product.description}</CardDescription>
+      
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="text-2xl font-semibold text-amber-600">${product.price.toFixed(2)}</p>
-        <p className="text-sm text-gray-500 mt-1">per dozen</p>
+        <CardDescription>{product.description}</CardDescription>
       </CardContent>
       <CardFooter>
         <Button onClick={handleAddToCart} className="w-full bg-amber-600 hover:bg-amber-700">
           <ShoppingCart className="w-4 h-4 mr-2" />
-          Add to Cart
+          Adicionar ao carrinho
         </Button>
       </CardFooter>
     </Card>
