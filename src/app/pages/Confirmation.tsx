@@ -2,7 +2,6 @@ import { Link } from 'react-router';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { CheckCircle } from 'lucide-react';
-
 export function Confirmation() {
   const orderNumber = Math.random().toString(36).substring(2, 10).toUpperCase();
 

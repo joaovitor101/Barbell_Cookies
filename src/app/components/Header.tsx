@@ -13,7 +13,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2">
             <Cookie className="w-8 h-8 text-amber-600" />
-            <span className="text-xl font-semibold text-gray-900">Cookie Shop</span>
+            <span className="text-xl font-semibold text-gray-900">Barbell Cookies</span>
           </Link>
           
           <nav className="flex items-center gap-6">

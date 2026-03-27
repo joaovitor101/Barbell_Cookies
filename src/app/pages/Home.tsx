@@ -11,10 +11,10 @@ export function Home() {
       <div className="cookie-content py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Cookies Frescos !
+            Cookies Barbell !
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Handcrafted with love, delivered to your door. Order your favorite cookies today!
+            Feitos à mão com amor, entregues na sua porta. Encomende seus biscoitos favoritos hoje mesmo!
           </p>
         </div>
       </div>
