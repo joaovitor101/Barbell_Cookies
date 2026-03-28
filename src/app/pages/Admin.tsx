@@ -8,6 +8,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -267,9 +268,6 @@ export function Admin() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Painel — Cookies</CardTitle>
-            <CardDescription>
-              Senha definida em ADMIN_PASSWORD no servidor (.env).
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -363,7 +361,6 @@ export function Admin() {
           <CardHeader>
             <CardTitle>Produtos</CardTitle>
             <CardDescription>
-              Imagem: URL completa ou caminho como{" "}
               <code className="text-xs">images/arquivo.webp</code>
             </CardDescription>
           </CardHeader>

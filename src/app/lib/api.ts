@@ -2,7 +2,13 @@ const STORAGE_KEY = "barbell_admin_token";
 
 export function getApiBase(): string {
   const base = import.meta.env.VITE_API_URL;
-  return typeof base === "string" ? base.replace(/\/$/, "") : "";
+  if (typeof base !== "string") return "";
+  const t = base.trim();
+  if (t === "" || t.startsWith("http://localhost")) {
+    /* em produção, evite VITE_API_URL=localhost no painel da Vercel */
+    return "";
+  }
+  return t.replace(/\/$/, "");
 }
 
 export function apiUrl(path: string): string {
