@@ -1,13 +1,16 @@
 import { useCart } from '../contexts/CartContext';
+import { useStoreStatus } from '../contexts/StoreStatusContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import { toast } from 'sonner';
 
 export function Cart() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
+  const { storeOpen, loading: statusLoading } = useStoreStatus();
   const navigate = useNavigate();
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -110,8 +113,15 @@ export function Cart() {
           </div>
 
           <Button
-            onClick={() => navigate('/checkout')}
-            className="bg-amber-600 hover:bg-amber-700 flex items-center gap-2 px-6 py-4 text-lg rounded-xl shadow-md"
+            onClick={() => {
+              if (!statusLoading && !storeOpen) {
+                toast.error('A loja está fechada. Não é possível finalizar o pedido.');
+                return;
+              }
+              navigate('/checkout');
+            }}
+            disabled={!statusLoading && !storeOpen}
+            className="bg-amber-600 hover:bg-amber-700 flex items-center gap-2 px-6 py-4 text-lg rounded-xl shadow-md disabled:opacity-50"
           >
             Finalizar
             <span className="bg-white text-amber-600 text-sm px-2 py-1 rounded-full">

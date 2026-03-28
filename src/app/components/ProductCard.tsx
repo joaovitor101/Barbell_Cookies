@@ -1,3 +1,4 @@
+import React from 'react';
 import { Product } from '../contexts/CartContext';
 import { useCart } from '../contexts/CartContext';
 import { Button } from './ui/button';
@@ -7,12 +8,15 @@ import { toast } from 'sonner';
 
 interface ProductCardProps {
   product: Product;
+  /** Quando a loja está fechada (CMS) */
+  addDisabled?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, addDisabled }: ProductCardProps) {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
+    if (addDisabled) return;
     addToCart(product);
     toast.success(`${product.name} adicionado ao carrinho !`);
   };
@@ -35,9 +39,13 @@ export function ProductCard({ product }: ProductCardProps) {
         <CardDescription>{product.description}</CardDescription>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleAddToCart} className="w-full bg-amber-600 hover:bg-amber-700">
+        <Button
+          onClick={handleAddToCart}
+          disabled={addDisabled}
+          className="w-full bg-amber-600 hover:bg-amber-700 disabled:opacity-60"
+        >
           <ShoppingCart className="w-4 h-4 mr-2" />
-          Adicionar ao carrinho
+          {addDisabled ? "Loja fechada" : "Adicionar ao carrinho"}
         </Button>
       </CardFooter>
     </Card>

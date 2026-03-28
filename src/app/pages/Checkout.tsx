@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
+import { useStoreStatus } from '../contexts/StoreStatusContext';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
+import React from "react";
 
 export function Checkout() {
   const { cart, getCartTotal, clearCart } = useCart();
@@ -14,7 +17,8 @@ export function Checkout() {
     firstName: '',
     lastName: '',
     phone: '',
-    address: '',
+    bairro: '',
+    rua: '',
     number: '',
   });
 
@@ -29,6 +33,10 @@ export function Checkout() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!storeOpen) {
+      toast.error('A loja está fechada. Não é possível enviar o pedido agora.');
+      return;
+    }
 
     let message = 'Olá! Vou querer:\n\n';
 
@@ -53,7 +61,7 @@ export function Checkout() {
     message += `${pinEmoji} *Dados para entrega:*\n`;
     message += `Nome: ${formData.firstName} ${formData.lastName}\n`;
     message += `Telefone: ${formData.phone}\n`;
-    message += `Endereço: ${formData.address}, ${formData.number}\n`;
+    message += `Endereço: ${formData.rua}, ${formData.bairro}, ${formData.number}\n`;
 
     const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
@@ -75,6 +83,13 @@ export function Checkout() {
       <div className="cookie-background-accent-2"></div>
       <div className="cookie-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Finalizar Compra</h1>
+
+        {!statusLoading && !storeOpen && (
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-950 text-sm">
+            A loja está fechada. Finalizar pedido ficará disponível quando
+            voltarmos a aceitar encomendas.
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
@@ -123,18 +138,27 @@ export function Checkout() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-2">
-                      <Label htmlFor="address">Endereço</Label>
+                      <Label htmlFor="rua">Rua</Label>
                       <Input
-                        id="address"
-                        name="address"
-                        value={formData.address}
+                        id="rua"
+                        name="rua"
+                        value={formData.rua}
                         onChange={handleChange}
                         required
                       />
                     </div>
-
+                    <div className="col-span-1">
+                      <Label htmlFor="bairro">Bairro</Label>
+                      <Input
+                        id="bairro"
+                        name="bairro"
+                        value={formData.bairro}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
                     <div className="col-span-1">
                       <Label htmlFor="number">Número</Label>
                       <Input
@@ -167,7 +191,11 @@ export function Checkout() {
                     >
                       Voltar
                     </Button>
-                    <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700">
+                    <Button
+                      type="submit"
+                      disabled={!statusLoading && !storeOpen}
+                      className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
+                    >
                       Finalizar Pedido
                     </Button>
                   </div>

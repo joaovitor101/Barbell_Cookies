@@ -6,6 +6,8 @@ export interface Product {
   description: string;
   price: number;
   image: string;
+  /** Opcional: vem da API/CMS */
+  sortOrder?: number;
 }
 
 export interface CartItem extends Product {
