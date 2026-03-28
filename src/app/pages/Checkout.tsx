@@ -12,6 +12,7 @@ import React from "react";
 
 export function Checkout() {
   const { cart, getCartTotal, clearCart } = useCart();
+  const { storeOpen, loading: statusLoading } = useStoreStatus();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
