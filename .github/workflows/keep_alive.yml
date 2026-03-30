@@ -1,0 +1,28 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Garantir branch master
+        uses: actions/checkout@v3
+        with:
+          ref: master
+
+      - name: Ping no Render
+        run: |
+          HORA=$(date -u +%H)
+
+          HORA_BR=$(( (10#$HORA - 3 + 24) % 24 ))
+
+          if [ $HORA_BR -ge 7 ] && [ $HORA_BR -lt 23 ]; then
+            curl -s https://barbell-cookies-1.onrender.com/api/health
+          else
+            echo "Fora do horário"
+          fi
