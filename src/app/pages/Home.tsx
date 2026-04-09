@@ -12,6 +12,27 @@ export function Home() {
   const [loading, setLoading] = useState(true);
   const [offlineNotice, setOfflineNotice] = useState<string | null>(null);
 
+  const injectKits = (items: Product[]): Product[] => {
+    return items.map((product) => {
+      if (product.kits && product.kits.length > 0) return product;
+      
+      const kits: { quantity: number; price: number }[] = [];
+      const regex = /(\d+)\s*unid[\.]?\s*[-–:]\s*(?:R\$\s*)?([\d,.]+)/gi;
+      let match;
+      while ((match = regex.exec(product.description || '')) !== null) {
+        const qty = parseInt(match[1], 10);
+        const price = parseFloat(match[2].replace(',', '.'));
+        if (!isNaN(qty) && !isNaN(price)) {
+          kits.push({ quantity: qty, price });
+        }
+      }
+      return {
+        ...product,
+        kits: kits.length > 0 ? kits.sort((a,b) => b.quantity - a.quantity) : undefined
+      };
+    });
+  };
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -22,16 +43,16 @@ export function Home() {
         const data = await res.json();
         if (cancelled) return;
         if (Array.isArray(data) && data.length > 0) {
-          setProducts(data);
+          setProducts(injectKits(data));
         } else {
-          setProducts(fallbackProducts);
+          setProducts(injectKits(fallbackProducts));
           setOfflineNotice(
             "Nenhum produto no banco — exibindo catálogo local até você cadastrar no painel."
           );
         }
       } catch {
         if (!cancelled) {
-          setProducts(fallbackProducts);
+          setProducts(injectKits(fallbackProducts));
           setOfflineNotice(
             "Não foi possível conectar à API — cardápio local. Suba o servidor e o MongoDB (npm run dev)."
           );

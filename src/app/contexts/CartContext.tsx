@@ -1,5 +1,10 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+export interface Kit {
+  quantity: number;
+  price: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -8,6 +13,7 @@ export interface Product {
   image: string;
   /** Opcional: vem da API/CMS */
   sortOrder?: number;
+  kits?: Kit[];
 }
 
 export interface CartItem extends Product {
@@ -16,12 +22,13 @@ export interface CartItem extends Product {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product, quantityToAdd?: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
   getCartCount: () => number;
+  getItemTotal: (item: CartItem) => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -29,17 +36,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, quantityToAdd: number = 1) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + quantityToAdd }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: quantityToAdd }];
     });
   };
 
@@ -63,8 +70,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCart([]);
   };
 
+  const getItemTotal = (item: CartItem) => {
+    if (item.kits && item.kits.length > 0) {
+      const sortedKits = [...item.kits].sort((a, b) => b.quantity - a.quantity);
+      let qty = item.quantity;
+      let itemTotal = 0;
+      for (const kit of sortedKits) {
+        if (qty >= kit.quantity) {
+          const numKits = Math.floor(qty / kit.quantity);
+          itemTotal += numKits * kit.price;
+          qty = qty % kit.quantity;
+        }
+      }
+      itemTotal += qty * item.price;
+      return itemTotal;
+    }
+    return item.price * item.quantity;
+  };
+
   const getCartTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => total + getItemTotal(item), 0);
   };
 
   const getCartCount = () => {
@@ -81,6 +106,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         getCartTotal,
         getCartCount,
+        getItemTotal,
       }}
     >
       {children}

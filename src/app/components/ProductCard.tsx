@@ -38,15 +38,33 @@ export function ProductCard({ product, addDisabled }: ProductCardProps) {
         <p className="text-2xl font-semibold text-amber-600">R${product.price.toFixed(2)}</p>
         <CardDescription>{product.description}</CardDescription>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col gap-2">
         <Button
           onClick={handleAddToCart}
           disabled={addDisabled}
           className="w-full bg-amber-600 hover:bg-amber-700 disabled:opacity-60"
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
-          {addDisabled ? "Loja fechada" : "Adicionar ao carrinho"}
+          {addDisabled ? "Loja fechada" : "Adicionar 1 un."}
         </Button>
+        {product.kits && product.kits.length > 0 && !addDisabled && (
+          <div className="w-full grid grid-cols-2 gap-2">
+            {[...product.kits].sort((a,b) => a.quantity - b.quantity).map((kit) => (
+              <Button
+                key={kit.quantity}
+                onClick={() => {
+                  addToCart(product, kit.quantity);
+                  toast.success(`${kit.quantity}x ${product.name} adicionado!`);
+                }}
+                variant="outline"
+                className="w-full text-xs font-semibold"
+                size="sm"
+              >
+                + Kit {kit.quantity}
+              </Button>
+            ))}
+          </div>
+        )}
       </CardFooter>
     </Card>
   );

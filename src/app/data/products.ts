@@ -7,6 +7,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 20 | 6 unid. - R$ 28',
     price: 5.99,
     image: 'https://images.unsplash.com/photo-1706167754899-36a714b5dc66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMGNob2NvbGF0ZSUyMGNvb2tpZXN8ZW58MXx8fHwxNzczNzkwNjQwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    kits: [
+      { quantity: 6, price: 28 },
+      { quantity: 4, price: 20 },
+    ],
   },
   {
     id: '2',
@@ -14,6 +18,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 24 | 6 unid. - R$ 33',
     price: 6.99,
     image: 'https://images.unsplash.com/photo-1673412810103-27c233f77da6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB2ZWx2ZXQlMjBjb29raWVzfGVufDF8fHx8MTc3Mzc5MDYzOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    kits: [
+      { quantity: 6, price: 33 },
+      { quantity: 4, price: 24 },
+    ],
   },
   {
     id: '3',
@@ -21,6 +29,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 30 | 6 unid. - R$ 43',
     price: 7.99,
     image: 'images/cookie_nutella.webp',
+    kits: [
+      { quantity: 6, price: 43 },
+      { quantity: 4, price: 30 },
+    ],
   },
   {
     id: '4',
@@ -28,6 +40,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 30 | 6 unid. - R$ 43',
     price: 12.99,
     image: 'images/red_velvet_nutella.jpg',
+    kits: [
+      { quantity: 6, price: 43 },
+      { quantity: 4, price: 30 },
+    ],
   },
   {
     id: '5',
@@ -35,6 +51,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 40 | 6 unid. - R$ 58',
     price: 10.99,
     image: 'https://images.unsplash.com/photo-1706167754899-36a714b5dc66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMGNob2NvbGF0ZSUyMGNvb2tpZXN8ZW58MXx8fHwxNzczNzkwNjQwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    kits: [
+      { quantity: 6, price: 58 },
+      { quantity: 4, price: 40 },
+    ],
   },
   {
     id: '6',
@@ -42,6 +62,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 44 | 6 unid. - R$ 61',
     price: 12.99,
     image: 'https://images.unsplash.com/photo-1673412810103-27c233f77da6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB2ZWx2ZXQlMjBjb29raWVzfGVufDF8fHx8MTc3Mzc5MDYzOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    kits: [
+      { quantity: 6, price: 61 },
+      { quantity: 4, price: 44 },
+    ],
   },
   {
     id: '7',
@@ -49,6 +73,10 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 56 | 6 unid. - R$ 82',
     price: 14.99,
     image: 'images/cookie_nutella.webp',
+    kits: [
+      { quantity: 6, price: 82 },
+      { quantity: 4, price: 56 },
+    ],
   },
   {
     id: '8',
@@ -56,5 +84,9 @@ export const products: Product[] = [
     description: 'Kits: 4 unid. - R$ 56 | 6 unid. - R$ 82',
     price: 14.99,
     image: 'images/red_velvet_nutella.jpg',
+    kits: [
+      { quantity: 6, price: 82 },
+      { quantity: 4, price: 56 },
+    ],
   },
 ];

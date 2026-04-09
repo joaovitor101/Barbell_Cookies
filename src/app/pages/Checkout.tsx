@@ -9,9 +9,27 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import React from "react";
+const bairros = [
+  { name: 'Vila Ponce', taxa: 0 },
+  { name: 'Vila Ribeiropolis', taxa: 0 },
+  { name: 'Vila Alvorada', taxa: 0 },
+  { name: 'Vila Yoshida', taxa: 0 },
+  { name: 'Vila Cabral', taxa: 3 },
+  { name: 'Nosso teto', taxa: 4 },
+  { name: 'Jardim Brasil', taxa: 4 },
+  { name: 'Jardim São Paulo', taxa: 5 },
+  { name: 'Jardim Paulistano', taxa: 7 },
+  { name: 'Vila Nova', taxa: 5 },
+  { name: 'Centro', taxa: 5 },
+  { name: 'Vila Tupy', taxa: 5 },
+  { name: 'Vila São Francisco', taxa: 5 },
+  { name: 'Vila Alay José Correa', taxa: 6 },
+  { name: 'Jardim Valeri', taxa: 6 },
+  { name: 'Cecap', taxa: 6 },
+];
 
 export function Checkout() {
-  const { cart, getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal, clearCart, getItemTotal } = useCart();
   const { storeOpen, loading: statusLoading } = useStoreStatus();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -31,6 +49,10 @@ export function Checkout() {
       navigate('/cart');
     }
   }, [cart.length, navigate]);
+
+  const selectedBairroInfo = bairros.find(b => b.name === formData.bairro);
+  const frete = selectedBairroInfo ? selectedBairroInfo.taxa : 0;
+  const totalGeral = getCartTotal() + frete;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,12 +74,23 @@ export function Checkout() {
 
     message += '\n';
 
-    const total = getCartTotal().toLocaleString('pt-BR', {
+    const subtotalFormatado = getCartTotal().toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    
+    const freteFormatado = frete > 0 
+       ? `R$ ${frete.toFixed(2).replace('.', ',')}` 
+       : 'Grátis';
+
+    const totalGeralFormatado = totalGeral.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     });
 
-    message += `${moneyEmoji} Total: ${total}\n\n`;
+    message += `🛒 Subtotal: ${subtotalFormatado}\n`;
+    message += `🛵 Taxa de Entrega: ${freteFormatado}\n`;
+    message += `${moneyEmoji} Total: *${totalGeralFormatado}*\n\n`;
 
     message += `${pinEmoji} *Dados para entrega:*\n`;
     message += `Nome: ${formData.firstName} ${formData.lastName}\n`;
@@ -152,13 +185,19 @@ export function Checkout() {
                     </div>
                     <div className="col-span-1">
                       <Label htmlFor="bairro">Bairro</Label>
-                      <Input
+                      <select
                         id="bairro"
                         name="bairro"
                         value={formData.bairro}
-                        onChange={handleChange}
+                        onChange={(e: any) => handleChange(e)}
                         required
-                      />
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        <option value="" disabled>Selecione um bairro</option>
+                        {bairros.map(b => (
+                           <option key={b.name} value={b.name}>{b.name}</option>
+                        ))}
+                      </select>
                     </div>
                     <div className="col-span-1">
                       <Label htmlFor="number">Número</Label>
@@ -219,7 +258,7 @@ export function Checkout() {
                         {item.name} × {item.quantity}
                       </span>
                       <span className="font-semibold">
-                        R${(item.price * item.quantity).toFixed(2)}
+                        R${getItemTotal(item).toFixed(2)}
                       </span>
                     </div>
                   ))}
@@ -230,11 +269,13 @@ export function Checkout() {
                     </div>
                     <div className="flex justify-between mb-2">
                       <span className="text-gray-600">Frete</span>
-                      <span className="font-semibold text-green-600">GRÁTIS</span>
+                      <span className={`font-semibold ${frete === 0 && formData.bairro !== '' ? 'text-green-600' : ''}`}>
+                         {formData.bairro === '' ? '--' : frete === 0 ? 'GRÁTIS' : `R$${frete.toFixed(2)}`}
+                      </span>
                     </div>
                     <div className="flex justify-between text-lg font-bold mt-4 pt-4 border-t">
-                      <span>Total</span>
-                      <span className="text-amber-600">R${getCartTotal().toFixed(2)}</span>
+                      <span>Total Geral</span>
+                      <span className="text-amber-600">R${totalGeral.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

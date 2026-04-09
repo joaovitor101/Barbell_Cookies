@@ -9,7 +9,7 @@ import { motion } from 'motion/react';
 import { toast } from 'sonner';
 
 export function Cart() {
-  const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
+  const { cart, updateQuantity, removeFromCart, getCartTotal, getItemTotal } = useCart();
   const { storeOpen, loading: statusLoading } = useStoreStatus();
   const navigate = useNavigate();
 
@@ -56,9 +56,16 @@ export function Cart() {
                   <p className="text-sm text-gray-500 line-clamp-2">
                     {item.description}
                   </p>
-                  <p className="text-amber-600 font-bold">
-                    R$ {item.price.toFixed(2)}
-                  </p>
+                  <div className="flex flex-col">
+                    <p className="text-amber-600 font-bold">
+                      R$ {getItemTotal(item).toFixed(2)}
+                    </p>
+                    {item.quantity >= 1 && (
+                      <span className="text-xs text-gray-500">
+                        {item.quantity} un. (R$ {(getItemTotal(item) / item.quantity).toFixed(2)}/un)
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex sm:flex-col justify-between items-center gap-3">
